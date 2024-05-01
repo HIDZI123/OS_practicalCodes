@@ -89,5 +89,5 @@ int main()
 
     bankers(alloc, max, avail, n, m);
 
-    return (0);
+    return 0;
 }

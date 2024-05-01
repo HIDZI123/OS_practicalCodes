@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void BestFit(int blocksize[], int n, int processing[], int m)
+void bestFit(int blocksize[], int m, int process[], int n)
 {
-    int allocate[n];
 
+    int allocation[n];
     for (int i = 0; i < n; i++)
     {
-        allocate[i] = -1;
+        allocation[i] = -1;
     }
 
     for (int i = 0; i < n; i++)
@@ -15,7 +15,7 @@ void BestFit(int blocksize[], int n, int processing[], int m)
         int bestIndex = -1;
         for (int j = 0; j < m; j++)
         {
-            if (blocksize[j] >= processing[i])
+            if (blocksize[j] >= process[i])
             {
                 if (bestIndex == -1)
                 {
@@ -30,69 +30,69 @@ void BestFit(int blocksize[], int n, int processing[], int m)
 
         if (bestIndex != -1)
         {
-            allocate[i] = bestIndex;
-            blocksize[bestIndex] -= processing[i];
+            allocation[i] = bestIndex;
+            blocksize[bestIndex] -= process[i];
         }
     }
 
-    cout << "\nProcess No.\tProcess Size\tBlock no.\n";
+    cout << "\nProcess\t\t"
+         << "Process Size\t"
+         << "Block No" << endl;
 
     for (int i = 0; i < n; i++)
     {
-        cout << i + 1 << "\t\t" << processing[i] << "\t\t";
-        if (allocate[i] != -1)
+        cout << i + 1 << "\t\t" << process[i] << "\t\t";
+        if (allocation[i] != -1)
         {
-            cout << allocate[i] + 1 << endl;
+            cout << allocation[i] + 1 << endl;
         }
         else
         {
-            cout << "Block not allocated\n";
+            cout << "Block not allocated" << endl;
         }
     }
 }
-
-void FirstFit(int blocksize[], int n, int processing[], int m)
+void firstFit(int blocksize[], int m, int process[], int n)
 {
-    int allocate[n];
-
+    int allocation[n];
     for (int i = 0; i < n; i++)
     {
-        allocate[i] = -1;
+        allocation[i] = -1;
     }
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            if (blocksize[j] >= processing[i])
+            if (blocksize[j] >= process[i])
             {
-                allocate[i] = j;
-                blocksize[j] -= processing[i];
+                allocation[i] = j;
+                blocksize[j] = -process[i];
                 break;
             }
         }
     }
 
-    cout << "\nProcess No.\tProcess Size\tBlock no.\n";
+    cout << "\nProcess\t\t"
+         << "Process Size\t"
+         << "Block No" << endl;
 
     for (int i = 0; i < n; i++)
     {
-        cout << i + 1 << "\t\t" << processing[i] << "\t\t";
-        if (allocate[i] != -1)
+        cout << i + 1 << "\t\t" << process[i] << "\t\t";
+        if (allocation[i] != -1)
         {
-            cout << allocate[i] + 1 << endl;
+            cout << allocation[i] + 1 << endl;
         }
         else
         {
-            cout << "Block not allocated\n";
+            cout << "Block not allocated" << endl;
         }
     }
 }
-
-void WorstFit(int blocksize[], int n, int processing[], int m)
+void worstFit(int blocksize[], int m, int process[], int n)
 {
     int allocate[n];
-
     for (int i = 0; i < n; i++)
     {
         allocate[i] = -1;
@@ -100,60 +100,62 @@ void WorstFit(int blocksize[], int n, int processing[], int m)
 
     for (int i = 0; i < n; i++)
     {
-        int worstIndex = -1;
+        int wrsIndex = -1;
         for (int j = 0; j < m; j++)
         {
-            if (blocksize[j] >= processing[i])
+            if (blocksize[j] >= process[i])
             {
-                if (worstIndex == -1)
+                if (wrsIndex == -1)
                 {
-                    worstIndex = j;
+                    wrsIndex = j;
                 }
-                else if (blocksize[worstIndex] < blocksize[j])
+                else if (blocksize[wrsIndex] < blocksize[j])
                 {
-                    worstIndex = j;
+                    wrsIndex = j;
                 }
             }
         }
 
-        if (worstIndex != -1)
+        if (wrsIndex != -1)
         {
-            allocate[i] = worstIndex;
-            blocksize[worstIndex] -= processing[i];
+            allocate[i] = wrsIndex;
+            blocksize[wrsIndex] -= process[i];
         }
     }
 
-    cout << "\nProcess No.\tProcess Size\tBlock no.\n";
+    cout << "\nProcess\t\t"
+         << "Process Size\t"
+         << "Block No" << endl;
 
     for (int i = 0; i < n; i++)
     {
-        cout << i + 1 << "\t\t" << processing[i] << "\t\t";
+        cout << i + 1 << "\t\t" << process[i] << "\t\t";
         if (allocate[i] != -1)
         {
             cout << allocate[i] + 1 << endl;
         }
         else
         {
-            cout << "Block not allocated\n";
+            cout << "Block not allocated" << endl;
         }
     }
 }
 
 int main()
 {
-    int blocksize[] = {100, 500, 200, 300, 600};
-    int processing[] = {212, 417, 112, 426};
-    int m = sizeof(blocksize) / sizeof(blocksize[0]);
-    int n = sizeof(processing) / sizeof(processing[0]);
+    int blockSize[] = {100, 500, 200, 300, 600};
+    int process[] = {212, 417, 112, 426};
+    int m = sizeof(blockSize) / sizeof(blockSize[0]);
+    int n = sizeof(process) / sizeof(process[0]);
 
-    cout << "\n BestFit: ";
-    BestFit(blocksize, n, processing, m);
+    cout << "\nBestFit: ";
+    bestFit(blockSize, m, process, n);
 
-    cout << "\n FirstFit: ";
-    FirstFit(blocksize, n, processing, m);
+    cout << "\nFirstFit: ";
+    firstFit(blockSize, m, process, n);
 
-    cout << "\n WorstFit: ";
-    WorstFit(blocksize, n, processing, m);
+    cout << "\nWorstFit: ";
+    worstFit(blockSize, m, process, n);
 
     return 0;
 }

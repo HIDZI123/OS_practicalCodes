@@ -22,9 +22,8 @@ void scan(int arr[] , int n, int head, string direction){
         if (arr[i] < head){
             left.push_back(arr[i]);
         }
-        else{
-            right.push_back(arr[i]);
-        }
+        if (arr[i] > head)
+			right.push_back(arr[i]);
     }
 
     sort(left.begin(), left.end());
@@ -33,9 +32,9 @@ void scan(int arr[] , int n, int head, string direction){
     int run = 2;
     while(run--){
         if (direction == "left"){
-            for(int i = left.size(); i>=0; i--){
-                seek_sequence.push_back(left[i]);
+            for(int i = left.size() - 1; i>=0; i--){
                 curr_track = left[i];
+                seek_sequence.push_back(left[i]);
                 distance = abs(curr_track - head);
                 seek_count += distance;
                 head = curr_track;
@@ -44,8 +43,8 @@ void scan(int arr[] , int n, int head, string direction){
         }
         else if (direction == "right"){
             for(int i = 0; i < right.size(); i++){
-                seek_sequence.push_back(right[i]);
                 curr_track = right[i];
+                seek_sequence.push_back(right[i]);
                 distance = abs(curr_track - head);
                 seek_count += distance;
                 head = curr_track;
@@ -70,7 +69,7 @@ int main()
     int arr[] = {176, 79, 34, 60, 92, 11, 41, 114};
     int n = sizeof(arr) / sizeof(arr[0]);
     int head = 50;
-    string direction = "left";
+    string direction = "right";
 
     scan(arr, n, head, direction);
 

@@ -67,7 +67,7 @@ void SCAN(int arr[], int head, string direction)
 	cout << "Seek Sequence is" << endl;
 
 	for (int i = 0; i < seek_sequence.size(); i++) {
-		cout << seek_sequence[i] << endl;
+		cout << seek_sequence[i] << "   ";
 	}
 }
 
@@ -76,7 +76,7 @@ int main()
 
 	int arr[n] = { 176, 79, 34, 60, 92, 11, 41, 114 };
 	int head = 50;
-	string direction = "left";
+	string direction = "right";
 
 	SCAN(arr, head, direction);
 
